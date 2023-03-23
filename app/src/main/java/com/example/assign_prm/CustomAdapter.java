@@ -79,6 +79,5 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             book_price_txt = itemView.findViewById(R.id.book_price_txt);
             mainLayout = itemView.findViewById(R.id.mainLayout);
         }
-
     }
 }

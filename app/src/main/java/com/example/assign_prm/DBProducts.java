@@ -78,9 +78,4 @@ public class DBProducts extends SQLiteOpenHelper {
         }
     }
 
-    void deleteAllData(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM books");
-    }
-
 }

@@ -15,10 +15,10 @@ import android.widget.Toast;
 
 public class UpdateActivity extends AppCompatActivity {
 
-    EditText title_input, author_input, pages_input;
+    EditText title_input, author_input, price_input;
     Button update_button, delete_button;
 
-    String id, title, author, pages;
+    String id, title, author, price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class UpdateActivity extends AppCompatActivity {
 
         title_input = findViewById(R.id.title_input2);
         author_input = findViewById(R.id.author_input2);
-        pages_input = findViewById(R.id.price_input2);
+        price_input = findViewById(R.id.price_input2);
         update_button = findViewById(R.id.update_button);
         delete_button = findViewById(R.id.delete_button);
 
@@ -39,39 +39,31 @@ public class UpdateActivity extends AppCompatActivity {
             ab.setTitle(title);
         }
 
-        update_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        update_button.setOnClickListener(view -> {
 
-                DBProducts myDB = new DBProducts(UpdateActivity.this);
-                title = title_input.getText().toString().trim();
-                author = author_input.getText().toString().trim();
-                pages = pages_input.getText().toString().trim();
-                myDB.updateData(id, title, author, pages);
-            }
+            DBProducts myDB = new DBProducts(UpdateActivity.this);
+            title = title_input.getText().toString().trim();
+            author = author_input.getText().toString().trim();
+            price = price_input.getText().toString().trim();
+            myDB.updateData(id, title, author, price);
         });
-        delete_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                confirmDialog();
-            }
-        });
+        delete_button.setOnClickListener(view -> confirmDialog());
 
     }
 
     void getAndSetIntentData(){
         if(getIntent().hasExtra("id") && getIntent().hasExtra("title") &&
-                getIntent().hasExtra("author") && getIntent().hasExtra("pages")){
+                getIntent().hasExtra("author") && getIntent().hasExtra("price")){
 
             id = getIntent().getStringExtra("id");
             title = getIntent().getStringExtra("title");
             author = getIntent().getStringExtra("author");
-            pages = getIntent().getStringExtra("pages");
+            price = getIntent().getStringExtra("price");
 
             title_input.setText(title);
             author_input.setText(author);
-            pages_input.setText(pages);
-            Log.d("step", title+" "+author+" "+pages);
+            price_input.setText(price);
+            Log.d("step", title+" "+author+" "+price);
         }else{
             Toast.makeText(this, "No data.", Toast.LENGTH_SHORT).show();
         }
@@ -90,11 +82,8 @@ public class UpdateActivity extends AppCompatActivity {
                 UpdateActivity.this.startActivity(intent);
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+        builder.setNegativeButton("No", (dialogInterface, i) -> {
 
-            }
         });
         builder.create().show();
     }
